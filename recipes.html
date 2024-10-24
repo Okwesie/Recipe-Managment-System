@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="media/mainLogo.jpg">
+    <img src="media/picture.jpg" alt="Share the Sauce Logo">
+    <title>Recipe Management - Share the Sauce Admin</title>
+    <link rel="stylesheet" href="admin-dashboard.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="users.html">User Management</a></li>
+            <li><a href="recipes.html">Recipe Management</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Recipe Management</h1>
+        <section id="recipes">
+            <h2>Manage Recipes</h2>
+            <button class="add-recipe-btn" onclick="showModal('addRecipeModal')">Add New Recipe</button>
+            <table id="recipeTable">
+                <thead>
+                    <tr>
+                        <th>Recipe ID</th>
+                        <th>Recipe Name</th>
+                        <th>Author</th>
+                        <th>Date Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>101</td>
+                        <td>Spaghetti Bolognese</td>
+                        <td>Kwame Dzokoto</td>
+                        <td>2024-10-01</td>
+                        <td class="actions">
+                            <button class="view-btn" onclick="viewRecipe(101)">View</button>
+                            <button class="edit-btn" onclick="editRecipe(101)">Edit</button>
+                            <button class="delete-btn" onclick="deleteRecipe(101)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>102</td>
+                        <td>Avocado Toast Brocarat</td>
+                        <td>Okwesie OG</td>
+                        <td>2024-10-03</td>
+                        <td class="actions">
+                            <button class="view-btn" onclick="viewRecipe(102)">View</button>
+                            <button class="edit-btn" onclick="editRecipe(102)">Edit</button>
+                            <button class="delete-btn" onclick="deleteRecipe(102)">Delete</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>103</td>
+                        <td>Chicken Mamasandae</td>
+                        <td>Frances Seyram</td>
+                        <td>2024-08-12</td>
+                        <td class="actions">
+                            <button class="view-btn" onclick="viewRecipe(103)">View</button>
+                            <button class="edit-btn" onclick="editRecipe(103)">Edit</button>
+                            <button class="delete-btn" onclick="deleteRecipe(103)">Delete</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>104</td>
+                        <td>Potato Jollof </td>
+                        <td>Araba Beezy</td>
+                        <td>2024-02-14</td>
+                        <td class="actions">
+                            <button class="view-btn" onclick="viewRecipe(104)">View</button>
+                            <button class="edit-btn" onclick="editRecipe(104)">Edit</button>
+                            <button class="delete-btn" onclick="deleteRecipe(104)">Delete</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>105</td>
+                        <td>2x4 rice and stew</td>
+                        <td>Abena Bempong</td>
+                        <td>2023-12-02</td>
+                        <td class="actions">
+                            <button class="view-btn" onclick="viewRecipe(105)">View</button>
+                            <button class="edit-btn" onclick="editRecipe(105)">Edit</button>
+                            <button class="delete-btn" onclick="deleteRecipe(105)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Modal for adding a new recipe -->
+    <div id="addRecipeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="hideModal('addRecipeModal')">&times;</span>
+            <h2>Add New Recipe</h2>
+            <form id="addRecipeForm">
+                <label for="addRecipeName">Recipe Title:</label>
+                <input type="text" id="addRecipeName" required>
+
+                <label for="addRecipeAuthor">Author:</label>
+                <input type="text" id="addRecipeAuthor" required>
+
+                <label for="addRecipeIngredients">Ingredients:</label>
+                <textarea id="addRecipeIngredients" required></textarea>
+
+                <label for="addRecipeInstructions">Instructions:</label>
+                <textarea id="addRecipeInstructions" required></textarea>
+
+                <label for="addRecipeOrigin">Origin:</label>
+                <input type="text" id="addRecipeOrigin" required>
+
+                <label for="addRecipeNutritionalValue">Nutritional Value:</label>
+                <textarea id="addRecipeNutritionalValue" required></textarea>
+
+                <label for="addRecipeAllergenInfo">Allergen Information:</label>
+                <textarea id="addRecipeAllergenInfo" required></textarea>
+
+                <label for="addRecipeShelfLife">Shelf Life:</label>
+                <input type="text" id="addRecipeShelfLife" required>
+
+                <label for="addRecipeQuantity">Quantity:</label>
+                <input type="number" id="addRecipeQuantity" required min="1">
+
+                <label for="addRecipeUnit">Unit:</label>
+                <input type="text" id="addRecipeUnit" required>
+
+                <label for="addRecipeCalories">Calories per Serving:</label>
+                <input type="number" id="addRecipeCalories" required min="0">
+
+                <label for="addRecipePreparationTime">Preparation Time (minutes):</label>
+                <input type="number" id="addRecipePreparationTime" required min="0">
+
+                <label for="addRecipeCookingTime">Cooking Time (minutes):</label>
+                <input type="number" id="addRecipeCookingTime" required min="0">
+
+                <label for="addRecipeServingSize">Serving Size:</label>
+                <input type="number" id="addRecipeServingSize" required min="1">
+
+                <label for="addRecipeImage">Recipe Image URL:</label>
+                <input type="url" id="addRecipeImage" required>
+
+                <button type="submit">Add Recipe</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for viewing recipe details -->
+    <div id="viewRecipeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="hideModal('viewRecipeModal')">&times;</span>
+            <h2>Recipe Details</h2>
+            <div id="recipeDetails"></div>
+        </div>
+    </div>
+
+    <!-- Modal for editing recipe information -->
+    <div id="editRecipeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="hideModal('editRecipeModal')">&times;</span>
+            <h2>Edit Recipe</h2>
+            <form id="editRecipeForm">
+                <input type="hidden" id="editRecipeId">
+                <label for="editRecipeName">Recipe Name:</label>
+                <input type="text" id="editRecipeName" required>
+
+                <label for="editRecipeAuthor">Author:</label>
+                <input type="text" id="editRecipeAuthor" required>
+
+                <label for="editRecipeIngredients">Ingredients:</label>
+                <textarea id="editRecipeIngredients" required></textarea>
+
+                <label for="editRecipeInstructions">Instructions:</label>
+                <textarea id="editRecipeInstructions" required></textarea>
+
+                <label for="editRecipeOrigin">Origin:</label>
+                <input type="text" id="editRecipeOrigin" required>
+
+                <label for="editRecipeNutritionalValue">Nutritional Value:</label>
+                <textarea id="editRecipeNutritionalValue" required></textarea>
+
+                <label for="editRecipeAllergenInfo">Allergen Information:</label>
+                <textarea id="editRecipeAllergenInfo" required></textarea>
+
+                <label for="editRecipeShelfLife">Shelf Life:</label>
+                <input type="text" id="editRecipeShelfLife" required>
+
+                <label for="editRecipeQuantity">Quantity:</label>
+                <input type="number" id="editRecipeQuantity" required min="1">
+
+                <label for="editRecipeUnit">Unit:</label>
+                <input type="text" id="editRecipeUnit" required>
+
+                <label for="editRecipeCalories">Calories per Serving:</label>
+                <input type="number" id="editRecipeCalories" required min="0">
+
+                <label for="editRecipePreparationTime">Preparation Time (minutes):</label>
+                <input type="number" id="editRecipePreparationTime" required min="0">
+
+                <label for="editRecipeCookingTime">Cooking Time (minutes):</label>
+                <input type="number" id="editRecipeCookingTime" required min="0">
+
+                <label for="editRecipeServingSize">Serving Size:</label>
+                <input type="number" id="editRecipeServingSize" required min="1">
+
+                <label for="editRecipeImage">Recipe Image URL:</label>
+                <input type="url" id="editRecipeImage" required>
+
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        // Function to show a modal
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        // Function to hide a modal
+        function hideModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function viewRecipe(recipeId) {
+            // Simulating fetching recipe details
+            const recipeDetails = {
+                id: recipeId,
+                name: "Spaghetti Bolognese",
+                author: "John Doe",
+                ingredients: "Spaghetti, ground beef, tomato sauce, onions, garlic",
+                instructions: "1. Cook spaghetti. 2. Brown beef. 3. Add sauce and simmer. 4. Combine and serve.",
+                origin: "Italy",
+                nutritionalValue: "High in protein",
+                allergenInfo: "Contains gluten and dairy",
+                shelfLife: "3 days in the fridge",
+                quantity: "2 cups",
+                unit: "cups",
+                calories: "400",
+                preparationTime: "10",
+                cookingTime: "20",
+                servingSize: "2",
+                dateCreated: "2024-10-01",
+                image: "image_url_here"
+            };
+            
+            document.getElementById('recipeDetails').innerHTML = `
+                <p><strong>ID:</strong> ${recipeDetails.id}</p>
+                <p><strong>Name:</strong> ${recipeDetails.name}</p>
+                <p><strong>Author:</strong> ${recipeDetails.author}</p>
+                <p><strong>Author:</strong> ${recipeDetails.author}</p>
+                <p><strong>Ingredients:</strong> ${recipeDetails.ingredients}</p>
+                <p><strong>Instructions:</strong> ${recipeDetails.instructions}</p>
+                <p><strong>Origin:</strong> ${recipeDetails.origin}</p>
+                <p><strong>Nutritional Value:</strong> ${recipeDetails.nutritionalValue}</p>
+                <p><strong>Allergen Information:</strong> ${recipeDetails.allergenInfo}</p>
+                <p><strong>Shelf Life:</strong> ${recipeDetails.shelfLife}</p>
+                <p><strong>Quantity:</strong> ${recipeDetails.quantity}</p>
+                <p><strong>Unit:</strong> ${recipeDetails.unit}</p>
+                <p><strong>Calories per Serving:</strong> ${recipeDetails.calories}</p>
+                <p><strong>Preparation Time:</strong> ${recipeDetails.preparationTime} minutes</p>
+                <p><strong>Cooking Time:</strong> ${recipeDetails.cookingTime} minutes</p>
+                <p><strong>Serving Size:</strong> ${recipeDetails.servingSize}</p>
+                <p><strong>Date Created:</strong> ${recipeDetails.dateCreated}</p>
+                <img src="${recipeDetails.image}" alt="${recipeDetails.name}" style="width: 100%; max-height: 300px;">
+            `;
+            showModal('viewRecipeModal');
+        }
+
+        function editRecipe(recipeId) {
+            // Simulating fetching recipe details for editing
+            const recipeDetails = {
+                id: recipeId,
+                name: "Spaghetti Bolognese",
+                author: "Kwame Kojo Dzokoto",
+                ingredients: "Spaghetti, ground beef, tomato sauce, onions, garlic",
+                instructions: "1. Cook spaghetti. 2. Brown beef. 3. Add sauce and simmer. 4. Combine and serve.",
+                origin: "Italy",
+                nutritionalValue: "High in protein",
+                allergenInfo: "Contains gluten and dairy",
+                shelfLife: "3 days in the fridge",
+                quantity: "2 cups",
+                unit: "cups",
+                calories: "400",
+                preparationTime: "10",
+                cookingTime: "20",
+                servingSize: "2",
+                image: "image_url_here"
+            };
+
+            document.getElementById('editRecipeId').value = recipeDetails.id;
+            document.getElementById('editRecipeName').value = recipeDetails.name;
+            document.getElementById('editRecipeAuthor').value = recipeDetails.author;
+            document.getElementById('editRecipeIngredients').value = recipeDetails.ingredients;
+            document.getElementById('editRecipeInstructions').value = recipeDetails.instructions;
+            document.getElementById('editRecipeOrigin').value = recipeDetails.origin;
+            document.getElementById('editRecipeNutritionalValue').value = recipeDetails.nutritionalValue;
+            document.getElementById('editRecipeAllergenInfo').value = recipeDetails.allergenInfo;
+            document.getElementById('editRecipeShelfLife').value = recipeDetails.shelfLife;
+            document.getElementById('editRecipeQuantity').value = recipeDetails.quantity;
+            document.getElementById('editRecipeUnit').value = recipeDetails.unit;
+            document.getElementById('editRecipeCalories').value = recipeDetails.calories;
+            document.getElementById('editRecipePreparationTime').value = recipeDetails.preparationTime;
+            document.getElementById('editRecipeCookingTime').value = recipeDetails.cookingTime;
+            document.getElementById('editRecipeServingSize').value = recipeDetails.servingSize;
+            document.getElementById('editRecipeImage').value = recipeDetails.image;
+
+            showModal('editRecipeModal');
+        }
+
+        function deleteRecipe(recipeId) {
+            const confirmation = confirm("Are you sure you want to delete this recipe?");
+            if (confirmation) {
+                // Logic to delete the recipe from the database
+                alert("Recipe deleted successfully!");
+                // Remove the recipe from the table (you would typically fetch this from your data source)
+                // Refresh the recipe table or remove the row here
+            }
+        }
+
+        document.getElementById('addRecipeForm').onsubmit = function(event) {
+            event.preventDefault(); // Prevent default form submission
+            // Logic to add the recipe
+            alert("New recipe added successfully!");
+            hideModal('addRecipeModal');
+        };
+
+        document.getElementById('editRecipeForm').onsubmit = function(event) {
+            event.preventDefault(); // Prevent default form submission
+            // Logic to save the edited recipe
+            alert("Recipe updated successfully!");
+            hideModal('editRecipeModal');
+        };
+    </script>
+</body>
+<footer>
+    <p>&copy; 2024 Share the Sauce. All rights reserved.</p>
+</footer>
+    
+
+</html>
+

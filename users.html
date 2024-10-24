@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "icon" type = "image/x-icon" href = "media/mainLogo.jpg">
+    <img src="media/picture.jpg" alt = "Share the Sauce Logo">
+    <title>User Management - Share the Sauce Admin</title>
+    <link rel="stylesheet" href="admin-dashboard.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="users.html">User Management</a></li>
+            <li><a href="recipes.html">Recipe Management</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>User Management</h1>
+        <section id="users">
+            <h2>Manage Users</h2>
+            <table id="userTable">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Edith</td>
+                        <td>Edith.Ardayfio@shareTheSauce.com</td>
+                        <td class="actions">
+                            <button class="view-btn" onclick="viewUser(1)">View</button>
+                            <button class="edit-btn" onclick="editUser(1)">Edit</button>
+                            <button class="delete-btn" onclick="deleteUser(1)">Delete</button>
+                        </td>
+                    </tr>
+                   <tr>
+                        <td>2</td>
+                        <td>Okwesie OG</td>
+                        <td>Okwesie@shareTheSauce.com</td>
+                        <td class="actions">
+                            <button class="view-btn" onclick="viewUser(2)">View</button>
+                            <button class="edit-btn" onclick="editUser(2)">Edit</button>
+                            <button class="delete-btn" onclick="deleteUser(2)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Kwame Dzkoto</td>
+                        <td>Kwame.Dzokoto@shareTheSauce.com</td>
+                        <td class="actions">
+                            <button class="view-btn" onclick="viewUser(3)">View</button>
+                            <button class="edit-btn" onclick="editUser(3)">Edit</button>
+                            <button class="delete-btn" onclick="deleteUser(3)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Araba Beezy</td>
+                        <td>Araba.Beezy@shareTheSauce.com</td>
+                        <td class="actions">
+                            <button class="view-btn" onclick="viewUser(4)">View</button>
+                            <button class="edit-btn" onclick="editUser(4)">Edit</button>
+                            <button class="delete-btn" onclick="deleteUser(4)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Abena Bempong</td>
+                        <td>Abena.Bempong@shareTheSauce.com</td>
+                        <td class="actions">
+                            <button class="view-btn" onclick="viewUser(5)">View</button>
+                            <button class="edit-btn" onclick="editUser(5)">Edit</button>
+                            <button class="delete-btn" onclick="deleteUser(5)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Frances Seyram</td>
+                        <td>Frances.Seyram@shareTheSauce.com</td>
+                        <td class="actions">
+                            <button class="view-btn" onclick="viewUser(6)">View</button>
+                            <button class="edit-btn" onclick="editUser(6)">Edit</button>
+                            <button class="delete-btn" onclick="deleteUser(6)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Modal for viewing user details -->
+    <div id="viewUserModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="hideModal('viewUserModal')">&times;</span>
+            <h2>User Details</h2>
+            <div id="userDetails"></div>
+        </div>
+    </div>
+
+    <!-- Modal for editing user information -->
+    <div id="editUserModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="hideModal('editUserModal')">&times;</span>
+            <h2>Edit User</h2>
+            <form id="editUserForm">
+                <input type="hidden" id="editUserId">
+                <label for="editName">Name:</label>
+                <input type="text" id="editName" required>
+                <label for="editEmail">Email:</label>
+                <input type="email" id="editEmail" required>
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Share the Sauce. All rights reserved.</p>
+    </footer>
+<script>
+
+// Function to show a modal
+function showModal(modalId) {
+    document.getElementById(modalId).style.display = 'block';
+}
+
+// Function to hide a modal
+function hideModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+// User Management JavaScript
+function viewUser(userId) {
+    // Simulating fetching user details
+    const userDetails = {
+        id: userId,
+        name: "Edith",
+        email: "Edith.Ardayfio@shareTheSauce.com",
+        registrationDate: "2024-01-01",
+        lastLogin: "2024-03-15",
+        accountStatus: "Active"
+    };
+    
+    document.getElementById('userDetails').innerHTML = `
+        <p><strong>ID:</strong> ${userDetails.id}</p>
+        <p><strong>Name:</strong> ${userDetails.name}</p>
+        <p><strong>Email:</strong> ${userDetails.email}</p>
+        <p><strong>Registration Date:</strong> ${userDetails.registrationDate}</p>
+        <p><strong>Last Login:</strong> ${userDetails.lastLogin}</p>
+        <p><strong>Account Status:</strong> ${userDetails.accountStatus}</p>
+    `;
+    
+    showModal('viewUserModal');
+}
+
+function editUser(userId) {
+    // Simulating fetching user details for editing
+    const userDetails = {
+        id: userId,
+        name: "Edith",
+        email: "Edith.Ardayfio@shareTheSauce.com"
+    };
+    
+    document.getElementById('editUserId').value = userDetails.id;
+    document.getElementById('editName').value = userDetails.name;
+    document.getElementById('editEmail').value = userDetails.email;
+    
+    showModal('editUserModal');
+}
+
+function deleteUser(userId) {
+        const confirmation = confirm("Are you sure you want to delete this user?");
+        if (confirmation) {
+            // Logic to delete the recipe from the database
+            alert("User deleted successfully!");
+
+        }
+    }
+
+// Handle form submission for editing user
+document.getElementById('editUserForm').onsubmit = function(e) {
+    e.preventDefault();
+    const userId = document.getElementById('editUserId').value;
+    const name = document.getElementById('editName').value;
+    const email = document.getElementById('editEmail').value;
+    
+    // Client-side validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address.');
+        return;
+    }
+    
+    if (name.trim() === '' || email.trim() === '') {
+        alert('Please fill in all required fields.');
+        return;
+    }
+    
+    // Simulating user update
+    console.log(`User ${userId} updated with name: ${name} and email: ${email}`);
+    
+    hideModal('editUserModal');
+}
+
+// Close modal when clicking outside of it
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = "none";
+    }
+}
+    </script>
+</body>
+<footer>
+    <p>&copy; 2024 Share the Sauce. All rights reserved.</p>
+</footer>
+    
+</html>

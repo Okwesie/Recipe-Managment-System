@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel = "icon" type = "image/x-icon" href = "media/mainLogo.jpg">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="Design.css">
+	<Title> Share The Sauce-SignUp</Title>
+	<img src="media/picture.jpg" alt = "Share the Sauce Logo">
+	<style>
+		img{
+			width:80%;
+			max-width: 300px;
+			margin-bottom: 20px;
+		}
+		.error {
+			color: tomato;
+		}
+	</style>
+</head>
+<body>
+<div class = "container">
+	<video autoplay muted loop id="myLogo">
+		<source src = "media/Logo.mp4" type="video/mp4">
+		Your browser does not support HTML5 video.
+	</video>
+
+	<div class="signup-container">
+		<p>Already have an account? <a href="login.html">Login here</a></p>
+		<h2>Sign Up</h2>
+
+		<form id="signupForm">
+			<input type="text" id="firstName" name="firstName" required placeholder="First Name">
+			<span class="error" id="firstNameError"></span>
+
+			<input type="text" id="lastName" name="lastName" required placeholder="Last Name">
+			<span class="error" id="lastNameError"></span>
+
+			<input type="text" id="email" name="email" required placeholder="Enter your Email">
+			<span class="error" id="emailError"></span>
+
+			<input type="password" id="password" name="password" required placeholder="Enter your password">
+			<span class="error" id="passwordError"></span>
+
+			<input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
+			<span class="error" id="confirmPasswordError"></span>
+
+			<input type="submit" value="Sign Up">
+		</form>
+	</div>
+</div>
+
+<script>
+	// Event listener for form submission
+	document.getElementById("signupForm").addEventListener("submit", function(event){
+		// Prevent form submission
+		event.preventDefault();
+		
+		// Clear error messages
+		document.getElementById("firstNameError").textContent = "";
+		document.getElementById("lastNameError").textContent = "";
+		document.getElementById("emailError").textContent = "";
+		document.getElementById("passwordError").textContent = "";
+		document.getElementById("confirmPasswordError").textContent = "";
+
+		// Get input values
+		const firstName = document.getElementById("firstName").value;
+		const lastName = document.getElementById("lastName").value;
+		const email = document.getElementById("email").value;
+		const password = document.getElementById("password").value;
+		const confirmPassword = document.getElementById("confirmPassword").value;
+
+		// Validation flags
+		let valid = true;
+
+		// Ensure all fields are filled
+		if (!firstName) {
+			document.getElementById("firstNameError").textContent = "First name is required.";
+			valid = false;
+		}
+
+		if (!lastName) {
+			document.getElementById("lastNameError").textContent = "Last name is required.";
+			valid = false;
+		}
+
+		if (!email) {
+			document.getElementById("emailError").textContent = "Email is required.";
+			valid = false;
+		} else if (!validateEmail(email)) {
+			document.getElementById("emailError").textContent = "Please enter a valid email address.";
+			valid = false;
+		}
+
+		// Validate password
+		if (!password) {
+			document.getElementById("passwordError").textContent = "Password is required.";
+			valid = false;
+		} else if (!validatePassword(password)) {
+			document.getElementById("passwordError").textContent = 
+				"Password must be at least 8 characters long, include one uppercase letter, at least three digits, and one special character.";
+			valid = false;
+		}
+
+		// Confirm password match
+		if (password !== confirmPassword) {
+			document.getElementById("confirmPasswordError").textContent = "Passwords do not match.";
+			valid = false;
+		}
+
+		// If all fields are valid, display success message
+		if (valid) {
+			alert("Form is valid. Proceeding without backend submission for now.");
+		}
+	});
+
+	// Email validation function
+	function validateEmail(email) {
+		const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return emailPattern.test(email);
+	}
+
+	// Password validation function
+	function validatePassword(password) {
+		const passwordPattern = /^(?=.*[A-Z])(?=.*\d{3,})(?=.*[!@#\$%\^\&*\)\(+=._-]).{8,}$/;
+		return passwordPattern.test(password);
+	}
+</script>
+</body>
+<footer>
+    <p>&copy; 2024 Share the Sauce. All rights reserved.</p>
+</footer>
+    
+</html>
