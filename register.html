@@ -3,7 +3,7 @@
 <head>
 	<link rel = "icon" type = "image/x-icon" href = "media/mainLogo.jpg">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="Design.css">
+	<link rel="stylesheet" href="styles/Design.css">
 	<Title> Share The Sauce-SignUp</Title>
 	<img src="media/picture.jpg" alt = "Share the Sauce Logo">
 	<style>
@@ -21,28 +21,33 @@
 <div class = "container">
 	<video autoplay muted loop id="myLogo">
 		<source src = "media/Logo.mp4" type="video/mp4">
-		Your browser does not support HTML5 video.
+		<p>Your browser does not support HTML5 video. Please use a modern browser</p>
 	</video>
 
 	<div class="signup-container">
 		<p>Already have an account? <a href="login.html">Login here</a></p>
 		<h2>Sign Up</h2>
 
-		<form id="signupForm">
+		<form id="signupForm"  method="POST" action="register.php">
+			<label for="firstName">First Name:</label>
 			<input type="text" id="firstName" name="firstName" required placeholder="First Name">
-			<span class="error" id="firstNameError"></span>
+			<span class="error" id="firstNameError" aria-live="polite"></span>
 
+			<label for="lastName">Last Name:</label>
 			<input type="text" id="lastName" name="lastName" required placeholder="Last Name">
-			<span class="error" id="lastNameError"></span>
+			<span class="error" id="lastNameError" aria-live="polite"></span>
 
+			<label for="email">Email:</label>
 			<input type="text" id="email" name="email" required placeholder="Enter your Email">
-			<span class="error" id="emailError"></span>
+			<span class="error" id="emailError" aria-live="polite"></span>
 
+			<label for="password">Password:</label>
 			<input type="password" id="password" name="password" required placeholder="Enter your password">
-			<span class="error" id="passwordError"></span>
+			<span class="error" id="passwordError"aria-live="polite"></span>
 
+			<label for="confirmPassword">Confirm Password:</label>
 			<input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
-			<span class="error" id="confirmPasswordError"></span>
+			<span class="error" id="confirmPasswordError" aria-live="polite"></span>
 
 			<input type="submit" value="Sign Up">
 		</form>
@@ -107,11 +112,35 @@
 			valid = false;
 		}
 
-		// If all fields are valid, display success message
+		// php call 
 		if (valid) {
-			alert("Form is valid. Proceeding without backend submission for now.");
+			fetch("register.php", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					firstName,
+					lastName,
+					email,
+					password,
+				}),
+			})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.status === "success") {
+					alert("Registration successful! Redirecting to login...");
+					window.location.href = "login.html";
+				} else {
+					alert(`Error: ${data.message}`);
+				}
+			})
+			.catch((error) => {
+				console.error("Error:", error);
+				alert("An error occurred. Please try again later.");
+			});
 		}
-	});
+				});
 
 	// Email validation function
 	function validateEmail(email) {
